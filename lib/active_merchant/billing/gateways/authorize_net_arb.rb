@@ -216,7 +216,9 @@ module ActiveMerchant #:nodoc:
           end
           # Contains either the customer’s credit card
           # or bank account payment information
-          add_payment(xml, options)
+          add_payment(xml, options) if options[:credit_card]
+          # Contains customer profile information (optional)
+          add_customer_profile(xml, options) if options[:profile]
           # Contains order information (optional)
           add_order(xml, options)
           # Contains information about the customer
@@ -265,7 +267,19 @@ module ActiveMerchant #:nodoc:
           end
         end
       end
-
+      
+      # Adds customer's payment profile information
+      def add_customer_profile(xml, options)
+        return unless options[:profile]
+        profile = options[:profile]
+        xml.tag!('profile') do
+          # The customer profile id
+          xml.tag!('customerProfileId', profile[:customer_profile_id])
+          # The customer payment profile id
+          xml.tag!('customerPaymentProfileId', profile[:customer_payment_profile_id])
+        end
+      end
+      
       # Adds customer's credit card or bank account payment information
       def add_payment(xml, options)
         return unless options[:credit_card] || options[:bank_account]
