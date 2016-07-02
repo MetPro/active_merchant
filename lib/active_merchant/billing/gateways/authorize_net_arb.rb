@@ -88,7 +88,7 @@ module ActiveMerchant #:nodoc:
         requires!(options[:duration], :start_date, :occurrences)
         #requires!(options[:billing_address], :first_name, :last_name)
         
-        if payment.has_key? :profile
+        if payment.is_a?(Hash) && payment.has_key?(:profile)
           options[:profile] = payment
         else
           options[:credit_card] = payment
