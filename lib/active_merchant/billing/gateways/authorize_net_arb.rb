@@ -30,6 +30,7 @@ module ActiveMerchant #:nodoc:
       self.live_url = 'https://api.authorize.net/xml/v1/request.api'
 
       self.default_currency = 'USD'
+      self.ssl_version = :TLSv1_2
 
       self.supported_countries = ['US', 'CA', 'GB']
       self.supported_cardtypes = [:visa, :master, :american_express, :discover, :diners_club, :jcb]

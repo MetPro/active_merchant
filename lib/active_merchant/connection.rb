@@ -114,10 +114,6 @@ module ActiveMerchant
     def configure_ssl(http)
       return unless endpoint.scheme == "https"
 
-      ssl_options_mask = OpenSSL::SSL::OP_NO_SSLv2 + OpenSSL::SSL::OP_NO_SSLv3
-      ssl_options_mask += OpenSSL::SSL::OP_NO_COMPRESSION if defined?(OpenSSL::SSL::OP_NO_COMPRESSION)
-      http.ssl_options = ssl_options_mask
-
       http.use_ssl = true
       http.ssl_version = ssl_version if ssl_version
 
